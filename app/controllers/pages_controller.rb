@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   end
 
   def show # rename 'display'
-    region = params.permit(:region)
+    region = params.permit(:region)[:region]
     json = `tree -Jifs #{Rails.root.join("places", region)}`
     render json: json
   end

@@ -12,21 +12,29 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
-const Hello = props => (
-  <div style={{ margin: '2rem' }} >Hello {props.name}!</div>
-)
+class Region extends React.Component {
+  state = { code: '' }
 
-Hello.defaultProps = {
-  name: 'David'
-}
+  componentDidMount = () => {
+    fetch(`/place/${this.props.name}`)
+    .then(response => response.json())
+    .then(response => this.setState({ code: response }))
+  }
 
-Hello.propTypes = {
-  name: PropTypes.string
+  render = () => (
+    <div style={{ margin: '2rem' }} >
+      Hello {this.props.name}!
+
+      <pre><code>
+        {JSON.stringify(this.state.code, null, 2)}
+      </code></pre>
+    </div>
+  )
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Hello name="React" />,
+    <Region name="us-michigan" />,
     document.body.appendChild(document.createElement('div')),
   )
 })
