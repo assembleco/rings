@@ -15,9 +15,11 @@ class Rings extends React.Component {
     )
     background.fillColor = "#f8f6bb"
 
+    var size = 0.9 * Math.min(paper.view.center.x, paper.view.center.y)
+
     new paper.Path.Circle({
       center: paper.view.center,
-      radius: 10,
+      radius: size,
       strokeColor: "black",
     })
   }
