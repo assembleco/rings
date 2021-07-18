@@ -1,4 +1,5 @@
 import React from "react"
+import paper from "paper"
 
 class Rings extends React.Component {
   constructor(p) {
@@ -7,11 +8,25 @@ class Rings extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.canvas.current)
+    paper.setup(this.canvas.current)
+
+    new paper.Path.Circle({
+      center: paper.view.center,
+      radius: 10,
+      strokeColor: "black",
+    })
   }
 
   render = () => (
-    <canvas ref={this.canvas} />
+    <canvas
+    style={{
+      width: "80vw",
+      height: "80vh",
+      border: "1px solid black",
+      display: "block",
+    }}
+    ref={this.canvas}
+    />
   )
 }
 
