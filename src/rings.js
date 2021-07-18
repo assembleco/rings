@@ -10,6 +10,11 @@ class Rings extends React.Component {
   componentDidMount() {
     paper.setup(this.canvas.current)
 
+    var background = new paper.Path.Rectangle(
+      paper.view.bounds
+    )
+    background.fillColor = "#f8f6bb"
+
     new paper.Path.Circle({
       center: paper.view.center,
       radius: 10,

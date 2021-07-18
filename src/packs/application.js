@@ -33,7 +33,7 @@ class Region extends React.Component {
   }
 
   render = () => (
-    <div style={{ margin: '2rem' }} >
+    <div style={{ background: '#bbe4c6', padding: '2rem' }} >
       Hello {this.props.name}!
 
       {this.state.code &&
