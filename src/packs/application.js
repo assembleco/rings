@@ -18,9 +18,18 @@ class Region extends React.Component {
   state = { code: null }
 
   componentDidMount = () => {
-    fetch(`/place/${this.props.name}`)
-    .then(response => response.json())
-    .then(response => this.setState({ code: response }))
+    var code = null
+    var json = localStorage.getItem("code")
+    if(json) this.setState({ code: JSON.parse(json) })
+
+    if(!this.state.code)
+      fetch(`/place/${this.props.name}`)
+      .then(response => response.json())
+      .then(response => {
+        localStorage.setItem("code", JSON.stringify(response))
+        return response
+      })
+      .then(response => this.setState({ code: response }))
   }
 
   render = () => (
