@@ -15,13 +15,8 @@ class Rings extends React.Component {
     )
     background.fillColor = "#f8f6bb"
 
-    var size = 0.9 * Math.min(paper.view.center.x, paper.view.center.y)
-
-    new paper.Path.Circle({
-      center: paper.view.center,
-      radius: size,
-      strokeColor: "black",
-    })
+    var size = 0.98 * Math.min(paper.view.center.x, paper.view.center.y)
+    place_subring_layer(paper, paper.view.center, size)
   }
 
   render = () => (
@@ -35,6 +30,14 @@ class Rings extends React.Component {
     ref={this.canvas}
     />
   )
+}
+
+var place_subring_layer = (paper, center, size) => {
+  var number_layers = 4
+  var number_subrings = 120
+
+  new paper.Path.Circle({ center, radius: size, strokeColor: "black" })
+
 }
 
 export default Rings
