@@ -34,15 +34,22 @@ class Rings extends React.Component {
 
 var place_subring_layer = (paper, center, size) => {
   var number_layers = 4
-  var number_subrings = 120
+  var remaining_subrings = 120
 
   new paper.Path.Circle({ center, radius: size, strokeColor: "black" })
 
-  while(number_subrings > 0) {
-    var number_subrings_in_layer = subrings_in_layer(number_subrings)
-    console.log(number_subrings_in_layer, "of", number_subrings)
+  // layer by layer
+  while(remaining_subrings > 0) {
+    var number_subrings_in_layer = subrings_in_layer(remaining_subrings)
+    console.log(number_subrings_in_layer, "of", remaining_subrings)
 
-    number_subrings = number_subrings - number_subrings_in_layer
+    remaining_subrings = remaining_subrings - number_subrings_in_layer
+
+    var theta = 2 * Math.PI / number_subrings_in_layer
+    var l = 1.0 / (size * Math.sin(theta))
+    var r = 1.0 / (size)
+    var layer_radius = 1.0 / (l + r)
+    console.log(layer_radius)
   }
 }
 
