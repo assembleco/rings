@@ -38,6 +38,21 @@ var place_subring_layer = (paper, center, size) => {
 
   new paper.Path.Circle({ center, radius: size, strokeColor: "black" })
 
+  var number_subrings_in_layer = subrings_in_layer(number_subrings)
+  console.log(number_subrings_in_layer, "of", number_subrings)
+}
+
+var subrings_in_layer = (number_subrings) => {
+  var PI = Math.PI
+
+  for(var k = 1; k < number_subrings; k ++) {
+    var minus = 1 - Math.sin(PI / k)
+    var plus = 1 + Math.sin(PI / k)
+    var f = minus * minus / (plus * plus)
+
+    if(f <= k * 1.0 / number_subrings)
+      return k
+  }
 }
 
 export default Rings
