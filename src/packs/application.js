@@ -12,8 +12,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
+import Rings from "../rings"
+
 class Region extends React.Component {
-  state = { code: '' }
+  state = { code: null }
 
   componentDidMount = () => {
     fetch(`/place/${this.props.name}`)
@@ -24,6 +26,10 @@ class Region extends React.Component {
   render = () => (
     <div style={{ margin: '2rem' }} >
       Hello {this.props.name}!
+
+      {this.state.code &&
+        <Rings code={this.state.code} />
+      }
 
       <pre><code>
         {JSON.stringify(this.state.code, null, 2)}
