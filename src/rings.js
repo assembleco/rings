@@ -46,7 +46,7 @@ var place_subring_layer = (paper, center, size) => {
 
     remaining_subrings = remaining_subrings - number_subrings_in_layer
 
-    var theta = 2 * Math.PI / number_subrings_in_layer
+    var theta = Math.PI / number_subrings_in_layer
     var l = 1.0 / (layer_size * Math.sin(theta))
     var r = 1.0 / (layer_size)
     var layer_radius = 1.0 / (l + r)
