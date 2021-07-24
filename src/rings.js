@@ -39,6 +39,7 @@ var place_subring_layer = (paper, center, size, code) => {
   var layer_size = size
 
   // layer by layer
+  var subring_index = 0
   while(remaining_subrings > 0) {
     var number_subrings_in_layer = subrings_in_layer(remaining_subrings)
     remaining_subrings = remaining_subrings - number_subrings_in_layer
@@ -58,6 +59,17 @@ var place_subring_layer = (paper, center, size, code) => {
         radius: subring_radius,
         strokeColor: "brown",
       })
+
+      if(code.contents[subring_index].contents) {
+        place_subring_layer(
+          paper,
+          [x, y],
+          subring_radius,
+          code.contents[subring_index],
+        )
+      }
+
+      subring_index += 1
     }
 
     layer_size = layer_size - 2 * subring_radius
