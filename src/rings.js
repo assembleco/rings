@@ -16,7 +16,7 @@ class Rings extends React.Component {
     background.fillColor = "#f8f6bb"
 
     var size = 0.98 * Math.min(paper.view.center.x, paper.view.center.y)
-    place_subring_layer(paper, paper.view.center, size)
+    place_subring_layer(paper, paper.view.center, size, this.props.code[0])
   }
 
   render = () => (
@@ -32,9 +32,8 @@ class Rings extends React.Component {
   )
 }
 
-var place_subring_layer = (paper, center, size) => {
-  var number_layers = 4
-  var remaining_subrings = 120
+var place_subring_layer = (paper, center, size, code) => {
+  var remaining_subrings = code.contents.length
 
   new paper.Path.Circle({ center, radius: size, strokeColor: "black" })
   var layer_size = size
