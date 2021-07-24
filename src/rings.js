@@ -63,7 +63,7 @@ var place_subring_layer = (paper, center, size, code) => {
       if(code.contents[subring_index].contents) {
         place_subring_layer(
           paper,
-          [x, y],
+          { x, y },
           subring_radius,
           code.contents[subring_index],
         )
