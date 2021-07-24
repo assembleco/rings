@@ -41,27 +41,26 @@ var place_subring_layer = (paper, center, size, code) => {
   // layer by layer
   while(remaining_subrings > 0) {
     var number_subrings_in_layer = subrings_in_layer(remaining_subrings)
-    console.log(number_subrings_in_layer, "of", remaining_subrings)
-
     remaining_subrings = remaining_subrings - number_subrings_in_layer
 
     var theta = Math.PI / number_subrings_in_layer
     var l = 1.0 / (layer_size * Math.sin(theta))
     var r = 1.0 / (layer_size)
-    var layer_radius = 1.0 / (l + r)
+    var subring_radius = 1.0 / (l + r)
 
     for(var i = 0; i < number_subrings_in_layer; i++) {
       var angle = 2 * theta * i;
-      var x = center.x + (layer_size - layer_radius) * Math.cos(angle)
-      var y = center.y + (layer_size - layer_radius) * Math.sin(angle)
+      var x = center.x + (layer_size - subring_radius) * Math.cos(angle)
+      var y = center.y + (layer_size - subring_radius) * Math.sin(angle)
+
       new paper.Path.Circle({
         center: [x, y],
-        radius: layer_radius,
+        radius: subring_radius,
         strokeColor: "brown",
       })
     }
 
-    layer_size = layer_size - 2 * layer_radius
+    layer_size = layer_size - 2 * subring_radius
   }
 }
 
