@@ -33,7 +33,11 @@ class Rings extends React.Component {
 }
 
 var place_subring_layer = (paper, center, size, code) => {
-  var remaining_subrings = code.contents.length
+  var contents = code.contents.filter(x =>
+    x.name !== "links.index"
+    && x.name !== "names.index"
+  )
+  var remaining_subrings = contents.length
 
   new paper.Path.Circle({ center, radius: size, strokeColor: "black" })
   var layer_size = size
@@ -60,12 +64,12 @@ var place_subring_layer = (paper, center, size, code) => {
         strokeColor: "brown",
       })
 
-      if(code.contents[subring_index].contents) {
+      if(contents[subring_index].contents) {
         place_subring_layer(
           paper,
           { x, y },
           subring_radius,
-          code.contents[subring_index],
+          contents[subring_index],
         )
       }
 
