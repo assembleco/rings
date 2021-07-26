@@ -39,10 +39,6 @@ class Region extends React.Component {
       {this.state.code &&
         <Rings code={this.state.code} />
       }
-
-      <pre><code>
-        {JSON.stringify(this.state.code, null, 2)}
-      </code></pre>
     </div>
   )
 }
