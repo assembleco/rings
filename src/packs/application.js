@@ -14,6 +14,19 @@ import PropTypes from 'prop-types'
 
 import Rings from "../rings"
 
+var places = [
+['alabama', 'alaska', 'arizona', 'arkansas', 'california', 'colorado',],
+['connecticut', 'delaware', 'district-of-columbia', 'florida', 'georgia',],
+['guam', 'hawaii', 'idaho', 'illinois', 'indiana', 'iowa', 'kansas', 'kentucky',],
+['louisiana', 'maine', 'maryland', 'massachusetts', 'michigan', 'minnesota',],
+['mississippi', 'missouri', 'montana', 'nebraska', 'nevada', 'new-hampshire',],
+['new-jersey', 'new-mexico', 'new-york', 'north-carolina', 'north-dakota',],
+['ohio', 'oklahoma', 'oregon', 'pennsylvania', 'puerto-rico', 'rhode-island',],
+['south-carolina', 'south-dakota', 'tennessee', 'texas', 'utah', 'vermont',],
+['virgin-islands', 'virginia', 'washington', 'west-virginia', 'wisconsin',],
+['wyoming',],
+]
+
 class Region extends React.Component {
   state = { code: null }
 
@@ -47,7 +60,7 @@ class Region extends React.Component {
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Region name="us-michigan" />,
+    <>{places[0].map((place) => <Region name={place} />)}</>,
     document.body.appendChild(document.createElement('div')),
   )
 })

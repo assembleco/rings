@@ -44,7 +44,7 @@ class Rings extends React.Component {
           this.paper,
           this.paper.view.center,
           size,
-          this.props.code[0].contents[11],
+          this.props.code[0].contents[0],
         )
       }}
       >
