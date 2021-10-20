@@ -19,14 +19,16 @@ class Region extends React.Component {
 
   componentDidMount = () => {
     var code = null
-    var json = localStorage.getItem("code")
+    var json = localStorage.getItem(`code.${this.props.name}`)
     if(json) this.setState({ code: JSON.parse(json) })
 
     if(!this.state.code)
       fetch(`/place/${this.props.name}`)
       .then(response => response.json())
       .then(response => {
-        localStorage.setItem("code", JSON.stringify(response))
+        try {
+          localStorage.setItem(`code.${this.props.name}`, JSON.stringify(response))
+        } catch { console.log(`cache exceeded - ${this.props.name}.`) }
         return response
       })
       .then(response => this.setState({ code: response }))
