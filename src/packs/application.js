@@ -39,18 +39,20 @@ class Region extends React.Component {
   }
 
   render = () => (
-    <Box>
-    Need some place displayed here?
-    Send me a message; <a href="mailto:g@assembled.app">g @ assembled.app</a>
-    </Box>
+    <>
+      <Box>
+      Need some place displayed here?
+      Send me a message; <a href="mailto:g@assembled.app">g @ assembled.app</a>
+      </Box>
 
-    <div style={{ background: '#bbe4c6', padding: '2rem' }} >
-      Hello {this.props.name}!
+      <div style={{ background: '#bbe4c6', padding: '2rem' }} >
+        Hello {this.props.name}!
 
-      {this.state.code &&
-        <Rings code={this.state.code} />
-      }
-    </div>
+        {this.state.code &&
+          <Rings code={this.state.code} />
+        }
+      </div>
+    </>
   )
 }
 
