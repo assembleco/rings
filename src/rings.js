@@ -2,6 +2,8 @@ import React from "react"
 import paper from "paper"
 
 class Rings extends React.Component {
+  state = { label: 'none' }
+
   constructor(p) {
     super(p)
     this.canvas = React.createRef()
@@ -16,13 +18,15 @@ class Rings extends React.Component {
     background.fillColor = "#f8f6bb"
 
     var size = 0.98 * Math.min(paper.view.center.x, paper.view.center.y)
-    place_subring_layer(paper, paper.view.center, size, this.props.code[0])
+    this.place_subring_layer(paper, paper.view.center, size, this.props.code[0])
 
     this.paper = paper
   }
 
   render = () => (
     <>
+      <div>Mouse on: {this.state.label}</div>
+
       <canvas
       style={{
         width: "80vw",
@@ -40,7 +44,7 @@ class Rings extends React.Component {
         background.fillColor = "#f8f6bb"
 
         var size = 0.98 * Math.min(this.paper.view.center.x, this.paper.view.center.y)
-        place_subring_layer(
+        this.place_subring_layer(
           this.paper,
           this.paper.view.center,
           size,
@@ -52,55 +56,69 @@ class Rings extends React.Component {
       </button>
     </>
   )
-}
 
-var place_subring_layer = (paper, center, size, code) => {
-  var contents = code.contents.filter(x =>
-    x.name !== "links.index"
-    && x.name !== "names.index"
-  )
-  var remaining_subrings = contents.length
+  place_subring_layer = (paper, center, size, code) => {
+    var contents = code.contents.filter(x =>
+      x.name !== "links.index"
+      && x.name !== "names.index"
+    )
+    var remaining_subrings = contents.length
 
-  new paper.Path.Circle({ center, radius: size, strokeColor: "black" })
-  var layer_size = size
+    new paper.Path.Circle({ center, radius: size, strokeColor: "black" })
+    var layer_size = size
 
-  // layer by layer
-  var subring_index = 0
-  while(remaining_subrings > 0) {
-    var number_subrings_in_layer = subrings_in_layer(remaining_subrings)
-    remaining_subrings = remaining_subrings - number_subrings_in_layer
+    // layer by layer
+    var subring_index = 0
+    while(remaining_subrings > 0) {
+      var number_subrings_in_layer = subrings_in_layer(remaining_subrings)
+      remaining_subrings = remaining_subrings - number_subrings_in_layer
 
-    var theta = Math.PI / number_subrings_in_layer
-    var l = 1.0 / (layer_size * Math.sin(theta))
-    var r = 1.0 / (layer_size)
-    var subring_radius = 1.0 / (l + r)
+      var theta = Math.PI / number_subrings_in_layer
+      var l = 1.0 / (layer_size * Math.sin(theta))
+      var r = 1.0 / (layer_size)
+      var subring_radius = 1.0 / (l + r)
 
-    for(var i = 0; i < number_subrings_in_layer; i++) {
-      var shade = code.contents[i].size / 6000
-      var angle = 2 * theta * i;
-      var x = center.x + (layer_size - subring_radius) * Math.cos(angle)
-      var y = center.y + (layer_size - subring_radius) * Math.sin(angle)
+      var measures = code.contents
+      for(var i = 0; i < number_subrings_in_layer; i++) {
+        var shade = measures[i].size / 6000
+        var color = `rgb(40, 60, ${(shade * 256).toFixed(0)})`
+        var angle = 2 * theta * i;
+        var x = center.x + (layer_size - subring_radius) * Math.cos(angle)
+        var y = center.y + (layer_size - subring_radius) * Math.sin(angle)
 
-      if(shade > 1) shade = 1
-      new paper.Path.Circle({
-        center: [x, y],
-        radius: subring_radius,
-        strokeColor: `rgb(40, 60, ${(shade * 256).toFixed(0)})`,
-      })
+        if(shade > 1) shade = 1
+        var circle = new paper.Path.Circle({
+          center: [x, y],
+          radius: subring_radius,
+          strokeColor: color,
+          // fillColor: '#f8f6dd',
+        })
 
-      if(contents[subring_index].contents) {
-        place_subring_layer(
-          paper,
-          { x, y },
-          subring_radius,
-          contents[subring_index],
-        )
+        if(measures[i]) {
+          circle.onMouseEnter = (e) => {
+            this.setState({ label: code.contents[i].name })
+            this.strokeColor = "red"
+          }
+
+          circle.onMouseLeave = (e) => {
+            this.strokeColor = color
+          }
+        }
+
+        if(contents[subring_index].contents) {
+          this.place_subring_layer(
+            paper,
+            { x, y },
+            subring_radius,
+            contents[subring_index],
+          )
+        }
+
+        subring_index += 1
       }
 
-      subring_index += 1
+      layer_size = layer_size - 2 * subring_radius
     }
-
-    layer_size = layer_size - 2 * subring_radius
   }
 }
 
