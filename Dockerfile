@@ -17,4 +17,4 @@ RUN bundle exec rake assets:precompile \
   && rm -rf /app/tmp/cache/assets/
 
 EXPOSE 3000
-CMD bin/rails s
+CMD bin/rails s -p $DOKKU_DOCKERFILE_PORTS
