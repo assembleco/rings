@@ -76,14 +76,16 @@ var place_subring_layer = (paper, center, size, code) => {
     var subring_radius = 1.0 / (l + r)
 
     for(var i = 0; i < number_subrings_in_layer; i++) {
+      var shade = code.contents[i].size / 6000
       var angle = 2 * theta * i;
       var x = center.x + (layer_size - subring_radius) * Math.cos(angle)
       var y = center.y + (layer_size - subring_radius) * Math.sin(angle)
 
+      if(shade > 1) shade = 1
       new paper.Path.Circle({
         center: [x, y],
         radius: subring_radius,
-        strokeColor: "brown",
+        strokeColor: `rgb(40, 60, ${(shade * 256).toFixed(0)})`,
       })
 
       if(contents[subring_index].contents) {
