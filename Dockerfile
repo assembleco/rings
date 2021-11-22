@@ -1,9 +1,11 @@
 FROM ruby
 
 RUN apt-get update -qq \
-  && apt-get install -y nodejs libpq-dev build-essential \
-  && apt-get clean autoclean && apt-get autoremove tree -y \
+  && apt-get install -y nodejs libpq-dev build-essential tree nodejs \
+  && apt-get clean autoclean && apt-get autoremove -y \
   && rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log
+
+RUN npm install --global yarn
 
 WORKDIR /app
 ADD Gemfile /app/
