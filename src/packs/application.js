@@ -11,7 +11,7 @@ import "channels"
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-
+import styled from "styled-components"
 import Rings from "../rings"
 
 var places = [
@@ -39,6 +39,11 @@ class Region extends React.Component {
   }
 
   render = () => (
+    <Box>
+    Need some place displayed here?
+    Send me a message; <a href="mailto:g@assembled.app">g @ assembled.app</a>
+    </Box>
+
     <div style={{ background: '#bbe4c6', padding: '2rem' }} >
       Hello {this.props.name}!
 
@@ -55,6 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(document.createElement('div')),
   )
 })
+
+var Box = styled.div`
+border: 2px solid #babada;
+border-radius: 4px;
+`
 
 Rails.start()
 Turbolinks.start()
