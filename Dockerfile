@@ -1,7 +1,7 @@
 FROM ruby
 
 RUN apt-get update -qq \
-  && apt-get install -y nodejs libpq-dev build-essential tree nodejs \
+  && apt-get install -y nodejs libpq-dev build-essential tree nodejs npm \
   && apt-get clean autoclean && apt-get autoremove -y \
   && rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log
 
