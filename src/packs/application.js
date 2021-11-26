@@ -15,7 +15,7 @@ import styled from "styled-components"
 import Rings from "../rings"
 
 var places = [
-  ['us-michigan', 'us-district-of-columbia'],
+  ['us-michigan', 'us-california', 'us-district-of-columbia'],
 ]
 
 class Region extends React.Component {
@@ -40,11 +40,6 @@ class Region extends React.Component {
 
   render = () => (
     <>
-      <Box>
-      Need some place displayed here?
-      Send me a message; <a href="mailto:g@assembled.app">g @ assembled.app</a>
-      </Box>
-
       <div style={{ background: '#bbe4c6', padding: '2rem' }} >
         Hello {this.props.name}!
 
@@ -58,7 +53,14 @@ class Region extends React.Component {
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <>{places[0].map((place) => <Region name={place} />)}</>,
+    <>
+      <Box>
+      Need some place displayed here?
+      Send me a message; <a href="mailto:g@assembled.app">g @ assembled.app</a>
+      </Box>
+
+      {places[0].map((place) => <Region name={place} />)}
+    </>,
     document.body.appendChild(document.createElement('div')),
   )
 })
